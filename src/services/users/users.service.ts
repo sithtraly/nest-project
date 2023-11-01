@@ -1,8 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { UserModel } from 'src/models/user.model';
 
 @Injectable()
 export class UserService {
-  getUser(): any {
-    return 'get all user'
+  constructor(
+    @InjectModel(UserModel)
+    private userModel: typeof UserModel
+  ) { }
+
+  async getUser(): Promise<any> {
+    return await this.userModel.findAll()
+  }
+
+  async findUser(username: String) {
+    return await this.userModel.findOne({ where: { username } })
   }
 }
