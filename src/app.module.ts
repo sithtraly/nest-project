@@ -10,8 +10,8 @@ import { BcryptService } from './services/bcrypt/bcrypt.service';
 import { AuthService } from './services/auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './services/auth/auth.controller';
-import { ProfileService } from './services/profile/profile.service';
-import { ProfileController } from './controllers/profile/profile.controller';
+import { RoleService } from './services/profile/role.service';
+import { ProfileController } from './controllers/role/role.controller';
 import models from './models/model'
 
 @Module({
@@ -56,7 +56,7 @@ import models from './models/model'
     UserService,
     BcryptService,
     AuthService,
-    ProfileService
+    RoleService
   ],
 })
 export class AppModule { }

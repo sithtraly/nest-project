@@ -1,5 +1,5 @@
 import { AllowNull, Column, ForeignKey, Model, Table, Unique } from "sequelize-typescript";
-import { ProfileModel } from "./profile.model";
+import { RoleModel } from "./role.model";
 
 @Table({ freezeTableName: true, tableName: 'users' })
 export class UserModel extends Model {
@@ -31,5 +31,5 @@ export class UserModel extends Model {
   isActive: boolean
 
   @Column({ defaultValue: 3 })
-  profileId: number
+  roleId: number
 }

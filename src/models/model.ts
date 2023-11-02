@@ -1,9 +1,9 @@
-import { ProfileModel } from "./profile.model"
+import { RoleModel } from "./role.model"
 import { UserModel } from "./user.model"
 
 const models = [
   UserModel,
-  ProfileModel
+  RoleModel
 ]
 
 export default models

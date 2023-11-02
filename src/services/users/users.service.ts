@@ -10,7 +10,11 @@ export class UserService {
   ) { }
 
   async getUser(): Promise<any> {
-    return await this.userModel.findAll()
+    const users = await this.userModel.findAll()
+    users.map((user) => {
+      user.password = undefined
+    })
+    return users
   }
 
   async findUser(username: String) {
