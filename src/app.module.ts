@@ -13,6 +13,8 @@ import { AuthController } from './services/auth/auth.controller';
 import { RoleService } from './services/profile/role.service';
 import { ProfileController } from './controllers/role/role.controller';
 import models from './models/model'
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './services/role/roles.guard';
 
 @Module({
   imports: [
@@ -37,7 +39,7 @@ import models from './models/model'
       sync: {
         alter: true
       },
-      models: models
+      models
     }),
     SequelizeModule.forFeature(models),
     JwtModule.register({
@@ -56,7 +58,11 @@ import models from './models/model'
     UserService,
     BcryptService,
     AuthService,
-    RoleService
+    RoleService,
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard
+    }
   ],
 })
 export class AppModule { }

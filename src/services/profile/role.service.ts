@@ -9,7 +9,7 @@ export class RoleService {
     private roleModel: typeof RoleModel
   ) { }
 
-  async getProfiles() {
+  async getRoles() {
     return await this.roleModel.findAll()
   }
 }

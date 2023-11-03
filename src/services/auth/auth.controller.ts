@@ -2,6 +2,7 @@ import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Post,
 import { AuthService } from "./auth.service";
 import { UserModel } from "src/models/user.model";
 import { AuthGuard } from "./auth.guard";
+import { log } from "console";
 
 @Controller('auth')
 export class AuthController {
@@ -25,9 +26,12 @@ export class AuthController {
   @Get('profile')
   async getProfile(@Request() req) {
     const id = req.user.id
+    log('---------------get profile-----------------')
+    console.log(req.user)
+    log('---------------get profile-----------------')
     const user = await UserModel.findOne({ where: { id } })
     user.password = undefined
-    const data = { ...user.dataValues, ...req.user }
+    const data = { ...user.dataValues }
     return data
   }
 }

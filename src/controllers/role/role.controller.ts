@@ -9,6 +9,6 @@ export class ProfileController {
 
   @Get()
   getProfile() {
-    return this.profileService.getProfiles()
+    return this.profileService.getRoles()
   }
 }
