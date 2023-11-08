@@ -27,6 +27,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/sequelize": "^10.0.0",
+    "@nestjs/swagger": "^7.1.14",
     "bcrypt": "^5.1.1",
     "mysql2": "^3.6.2",
     "reflect-metadata": "^0.1.13",
