@@ -1,7 +1,7 @@
-import { AllowNull, Column, ForeignKey, Model, Table, Unique } from "sequelize-typescript";
+import { AllowNull, BelongsTo, Column, ForeignKey, Model, Table, Unique } from "sequelize-typescript";
 import { RoleModel } from "./role.model";
 
-@Table({ freezeTableName: true, tableName: 'users' })
+@Table({ freezeTableName: true, tableName: 'users', engine: 'MyISAM' })
 export class UserModel extends Model {
   @AllowNull(false)
   @Column
@@ -30,6 +30,10 @@ export class UserModel extends Model {
   @Column({ defaultValue: true })
   isActive: boolean
 
+  @ForeignKey(() => RoleModel)
   @Column({ defaultValue: 3 })
   roleId: number
+
+  @BelongsTo(() => RoleModel)
+  roleModel: RoleModel
 }
