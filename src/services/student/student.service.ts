@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import NewStudentDto, { updateStudentDto } from 'src/DTO/student.dto';
 import StudentsModel from 'src/models/student.model';
@@ -26,6 +26,7 @@ export class StudentService {
   async updateStudent(id: number, dataDto: updateStudentDto) {
     try {
       let student = await this.model.findByPk(id)
+      if (!student) throw new BadRequestException('Student not found')
       for (let key of Object.keys(dataDto)) {
         if (key === 'id') continue
         if (student[key] !== dataDto[key]) student[key] = dataDto[key]

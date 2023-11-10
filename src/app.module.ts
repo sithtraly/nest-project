@@ -17,6 +17,8 @@ import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { RolesGuard } from './services/role/roles.guard';
 import { StudentController } from './controllers/student/student.controller';
 import { StudentService } from './services/student/student.service';
+import { SubjectController } from './controllers/subject/subject.controller';
+import { SubjectService } from './services/subject/subject.service';
 
 @Module({
   imports: [
@@ -30,6 +32,10 @@ import { StudentService } from './services/student/student.service';
       },
       models: models,
       logging: false,
+      dialectOptions: {
+        useUTC: false,
+        // timezone: '07:00',
+      },
     }),
     // SequelizeModule.forRoot({
     //   dialect: 'mysql',
@@ -55,7 +61,8 @@ import { StudentService } from './services/student/student.service';
     AppController,
     UserController,
     ProfileController,
-    StudentController
+    StudentController,
+    SubjectController
   ],
   providers: [
     AppService,
@@ -72,6 +79,7 @@ import { StudentService } from './services/student/student.service';
       provide: APP_PIPE,
       useClass: ValidationPipe,
     },
+    SubjectService,
   ],
 })
 export class AppModule { }

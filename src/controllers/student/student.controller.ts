@@ -15,16 +15,16 @@ export class StudentController {
   }
 
   @Post('new-student')
-  newStudent(@Body() data: NewStudentDto) {
-    return this.studentService.newStudent(data)
+  newStudent(@Body() body: NewStudentDto) {
+    return this.studentService.newStudent(body)
   }
 
   @Put('update-student')
-  updateStudent(@Request() req: { params: any, query: any }, @Body() data: updateStudentDto) {
-    const id = req.query.id || data.id
+  updateStudent(@Request() req: { params: any, query: any }, @Body() body: updateStudentDto) {
+    const id = req.query.id || body.id
     if (!id) {
       throw new BadRequestException('id should not be empty')
     }
-    return this.studentService.updateStudent(id, data)
+    return this.studentService.updateStudent(id, body)
   }
 }
