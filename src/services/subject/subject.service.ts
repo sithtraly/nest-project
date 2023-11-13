@@ -10,12 +10,9 @@ export class SubjectService {
     private model: typeof SubjectModel
   ) { }
 
-  async getSubjects() {
+  async getSubjects(id?: number) {
+    if (id) return await this.model.findByPk(id)
     return await this.model.findAll()
-  }
-
-  async getSubjectById(id: number) {
-    return await this.model.findByPk(id)
   }
 
   async newSubject(data: NewSubjectDto) {

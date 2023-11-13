@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Post, Put, Request } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Put, Query, Request } from '@nestjs/common';
 import { NewSubjectDto, UpdateSubjectDto } from 'src/DTO/subject.dto';
 import { SubjectService } from 'src/services/subject/subject.service';
 
@@ -9,7 +9,8 @@ export class SubjectController {
   ) { }
 
   @Get()
-  getSubjects() {
+  getSubjects(@Query()  query: any) {
+    if (query.id) return this.subjectService.getSubjects(query.id)
     return this.subjectService.getSubjects()
   }
 
@@ -19,8 +20,8 @@ export class SubjectController {
   }
 
   @Put()
-  updateSubject(@Request() req: { query: { id: number } }, @Body() body: UpdateSubjectDto) {
-    const id = req.query.id || body.id
+  updateSubject(@Query() query: any, @Body() body: UpdateSubjectDto) {
+    const id = query.id || body.id
     if (!id) throw new BadRequestException('id should not be empty')
     return this.subjectService.updateSubject(id, body)
   }
