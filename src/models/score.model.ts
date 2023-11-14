@@ -8,17 +8,9 @@ export default class ScoreModel extends Model {
   @Column
   score: number
 
-  @ForeignKey(() => SubjectModel)
   @Column
   subjectId: number
 
-  @ForeignKey(() => StudentsModel)
   @Column
   studentId: number
-
-  @BelongsTo(() => StudentsModel)
-  studentModel: StudentsModel
-
-  @BelongsTo(() => SubjectModel)
-  subjectModel: SubjectModel
 }

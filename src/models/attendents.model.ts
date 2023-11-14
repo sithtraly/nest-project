@@ -10,10 +10,6 @@ export default class AttendentModel extends Model {
   @Column({defaultValue: 'A'})
   type: string
 
-  @ForeignKey(() => StudentsModel)
   @Column
   studentId: number
-
-  @BelongsTo(() => StudentsModel)
-  studentModel: StudentsModel
 }

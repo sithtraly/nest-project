@@ -11,10 +11,6 @@ export default class DocumentModel extends Model {
   @Column
   url: string
 
-  @ForeignKey(() => StudentsModel)
   @Column
   studentId: number
-
-  @BelongsTo(() => StudentsModel)
-  student: StudentsModel
 }
