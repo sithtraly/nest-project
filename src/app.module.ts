@@ -24,14 +24,14 @@ import { SubjectService } from './services/subject/subject.service';
   imports: [
     ConfigModule.forRoot({ load: [configuration] }),
     SequelizeModule.forRoot({
-      dialect: 'sqlite',
-      storage: 'src/config/database.sqlite',
-      autoLoadModels: true,
+      dialect: configuration().dielect,
+      storage: configuration().storage,
+      autoLoadModels: configuration().autoLoadModels,
       sync: {
-        alter: true
+        alter: configuration().alter
       },
       models: models,
-      logging: false,
+      logging: configuration().logging,
       dialectOptions: {
         useUTC: false,
         // timezone: '07:00',
@@ -53,7 +53,7 @@ import { SubjectService } from './services/subject/subject.service';
     SequelizeModule.forFeature(models),
     JwtModule.register({
       global: true,
-      secret: '123'
+      secret: process.env.SECRET
     })
   ],
   controllers: [

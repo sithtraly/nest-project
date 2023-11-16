@@ -23,7 +23,7 @@ export class RolesGuard implements CanActivate {
     try {
       const payload = await this.jwtService.verifyAsync(
         token,
-        { secret: '123' }
+        { secret: process.env.SECRET }
       )
       const user = await this.userService.findUser(payload.username)
       roleId = user.dataValues.roleId
