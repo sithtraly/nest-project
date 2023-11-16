@@ -3,6 +3,7 @@ import { AuthService } from "./auth.service";
 import { UserModel } from "src/models/user.model";
 import { AuthGuard } from "./auth.guard";
 import { log } from "console";
+import { NewUserDto, UserLoginDto } from "src/DTO/user.dto";
 
 @Controller('auth')
 export class AuthController {
@@ -12,14 +13,14 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('login')
-  login(@Body() userDto: UserModel) {
-    console.log(userDto)
-    const err = { message: 'missing field', fields: [], statusCode: '400' }
-    if (!userDto.username) err.fields.push('username')
-    if (!userDto.password) err.fields.push('password')
-    if (err.fields.length > 0) throw new BadRequestException(err)
+  login(@Body() body: UserLoginDto) {
+    return this.authService.login(body.username, body.password)
+  }
 
-    return this.authService.login(userDto.username, userDto.password)
+  @HttpCode(HttpStatus.OK)
+  @Post('register')
+  async register(@Body() body: NewUserDto) {
+    return await this.authService.register(body)
   }
 
   @UseGuards(AuthGuard)

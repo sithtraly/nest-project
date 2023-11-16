@@ -32,24 +32,8 @@ import { SubjectService } from './services/subject/subject.service';
       },
       models: models,
       logging: configuration().logging,
-      dialectOptions: {
-        useUTC: false,
-        // timezone: '07:00',
-      },
+      retryAttempts: 3
     }),
-    // SequelizeModule.forRoot({
-    //   dialect: 'mysql',
-    //   host: 'localhost',
-    //   port: 3306,
-    //   database: 'nest-project',
-    //   username: 'root',
-    //   password: '',
-    //   autoLoadModels: true,
-    //   sync: {
-    //     alter: true
-    //   },
-    //   models
-    // }),
     SequelizeModule.forFeature(models),
     JwtModule.register({
       global: true,
