@@ -11,7 +11,7 @@ export class SubjectService {
   ) { }
 
   async getSubjects(id?: number) {
-    if (id) return await this.model.findByPk(id)
+    if (id) return await this.model.findByPk(id) || []
     return await this.model.findAll()
   }
 

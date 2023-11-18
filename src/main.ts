@@ -9,8 +9,10 @@ async function bootstrap() {
   const port = configuration().port || 3000
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Nest Project')
-    .setDescription('Rest API for nest project, project to controller classroom')
+    .setDescription('Rest API for nest project, project to controller classroom (Class Management System)')
     .setVersion('1.0')
+    .setBasePath('/api')
+    .addBearerAuth()
     .build()
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig)
   SwaggerModule.setup('api', app, swaggerDocument)

@@ -19,7 +19,9 @@ import { StudentController } from './controllers/student/student.controller';
 import { StudentService } from './services/student/student.service';
 import { SubjectController } from './controllers/subject/subject.controller';
 import { SubjectService } from './services/subject/subject.service';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Module({
   imports: [
     ConfigModule.forRoot({ load: [configuration] }),

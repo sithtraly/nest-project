@@ -1,7 +1,12 @@
-import { BadRequestException, Body, Controller, Get, Param, Post, Put, Request } from '@nestjs/common';
-import NewStudentDto, { updateStudentDto } from 'src/DTO/student.dto';
+import { BadRequestException, Body, Controller, Get, Param, Post, Put, Query, Request, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import NewStudentDto, { GetStudentDto, updateStudentDto } from 'src/DTO/student.dto';
+import { AuthGuard } from 'src/services/auth/auth.guard';
 import { StudentService } from 'src/services/student/student.service';
 
+@UseGuards(AuthGuard)
+@ApiTags('Students')
+@ApiBearerAuth()
 @Controller('students')
 export class StudentController {
   constructor(
@@ -9,8 +14,8 @@ export class StudentController {
   ) { }
 
   @Get()
-  get(@Request() req: { params: any, query: any }) {
-    const id = req.query.id
+  get(@Query() query: GetStudentDto) {
+    const id = query.id
     return this.studentService.getStudents(id)
   }
 

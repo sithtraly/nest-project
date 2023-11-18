@@ -2,8 +2,8 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from '../users/users.service';
 import { BcryptService } from '../bcrypt/bcrypt.service';
 import { JwtService } from '@nestjs/jwt';
-import { log } from 'console';
-import { NewUserDto, UserLoginDto } from 'src/DTO/user.dto';
+import { NewUserDto } from 'src/DTO/user.dto';
+import { UserModel } from 'src/models/user.model';
 
 @Injectable()
 export class AuthService {
@@ -38,5 +38,13 @@ export class AuthService {
       password = this.bcryptService.hash(data.password)
     }
     return await this.userService.newUser({ ...data, password })
+  }
+
+  async getProfile(id: number) {
+    const data: any = await UserModel.sequelize.query(`SELECT u.*, r.name role  FROM users u JOIN roles r ON u.roleId = r.id WHERE u.id = ${id}`)
+    const user = data[0][0];
+    user.password = undefined
+    delete user.password
+    return user
   }
 }
