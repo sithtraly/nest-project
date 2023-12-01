@@ -1,5 +1,6 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { NewRoleDto, UpdateRoleDto } from 'src/DTO/role.dto';
 import { AuthGuard } from 'src/services/auth/auth.guard';
 import { RoleService } from 'src/services/profile/role.service';
 
@@ -9,11 +10,21 @@ import { RoleService } from 'src/services/profile/role.service';
 @Controller('role')
 export class ProfileController {
   constructor(
-    private profileService: RoleService
-  ) {}
+    private roleService: RoleService
+  ) { }
 
   @Get()
   getProfile() {
-    return this.profileService.getRoles()
+    return this.roleService.getRoles()
+  }
+
+  @Post()
+  newRole(@Body() body: NewRoleDto) {
+    return this.roleService.newRoles(body)
+  }
+
+  @Put()
+  uppateRole(@Body() body: UpdateRoleDto) {
+    return this.roleService.updateRole(body)
   }
 }
