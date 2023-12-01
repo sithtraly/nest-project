@@ -15,9 +15,9 @@ export class SubjectController {
 
   @ApiProperty()
   @Get()
-  getSubjects(@Query() query: GetSubjectDto) {
-    if (query.id) return this.subjectService.getSubjects(query.id)
-    return this.subjectService.getSubjects()
+  getSubjects(@Query() query?: GetSubjectDto) {
+    console.log(query)
+    return this.subjectService.getSubjects(query)
   }
 
   @ApiBody({ type: NewSubjectDto })

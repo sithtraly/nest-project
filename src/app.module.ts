@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { UserController } from './controllers/users/users.controller';
 import { UserService } from './services/users/users.service';
 import { ConfigModule } from '@nestjs/config';
-import configuration from './config/configuration';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { BcryptService } from './services/bcrypt/bcrypt.service';
 import { AuthService } from './services/auth/auth.service';
@@ -20,22 +19,24 @@ import { StudentService } from './services/student/student.service';
 import { SubjectController } from './controllers/subject/subject.controller';
 import { SubjectService } from './services/subject/subject.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { UtilsService } from './services/utils/utils.service';
+import config from './config/db.config';
+
+let envPath: string
+let db: any
+if (process.env.NODE_ENV === 'dev') {
+  envPath = '.env'
+  db = config.dev
+} else {
+  envPath = '.env.prod'
+  db = config.prod
+}
 
 @ApiBearerAuth()
 @Module({
   imports: [
-    ConfigModule.forRoot({ load: [configuration] }),
-    SequelizeModule.forRoot({
-      dialect: configuration().dielect,
-      storage: configuration().storage,
-      autoLoadModels: configuration().autoLoadModels,
-      sync: {
-        alter: configuration().alter
-      },
-      models: models,
-      logging: configuration().logging,
-      retryAttempts: 3
-    }),
+    ConfigModule.forRoot({ envFilePath: envPath }),
+    SequelizeModule.forRoot(db()),
     SequelizeModule.forFeature(models),
     JwtModule.register({
       global: true,
@@ -66,6 +67,7 @@ import { ApiBearerAuth } from '@nestjs/swagger';
       useClass: ValidationPipe,
     },
     SubjectService,
+    UtilsService,
   ],
 })
 export class AppModule { }

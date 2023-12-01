@@ -17,7 +17,6 @@ export class UserController {
   @Roles(Role.admin)
   @Get()
   getUser(@Query() query: GetUserDto) {
-    console.log(query)
     return this.userService.getUser()
   }
 }
