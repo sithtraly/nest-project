@@ -2,17 +2,18 @@ import { BadRequestException, Injectable, ServiceUnavailableException } from '@n
 import { InjectModel } from '@nestjs/sequelize';
 import { GetSubjectDto, NewSubjectDto, UpdateSubjectDto } from 'src/DTO/subject.dto';
 import SubjectModel from 'src/models/subject.model';
-import { UtilsService } from '../utils/utils.service';
+import { Utils } from '../utils/utils.service';
 
 @Injectable()
 export class SubjectService {
   constructor(
     @InjectModel(SubjectModel)
-    private model: typeof SubjectModel
+    private model: typeof SubjectModel,
+    private utils: Utils
   ) { }
 
   async getSubjects(query?: GetSubjectDto) {
-    return await this.model.findAll({ where: UtilsService.extractSearchDate(query) })
+    return await this.model.findAll({ where: this.utils.extractSearchDate(query) })
   }
 
   async newSubject(data: NewSubjectDto) {

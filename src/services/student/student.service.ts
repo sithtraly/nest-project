@@ -1,18 +1,22 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import NewStudentDto, { updateStudentDto } from 'src/DTO/student.dto';
+import NewStudentDto, { GetStudentDto, updateStudentDto } from 'src/DTO/student.dto';
 import StudentsModel from 'src/models/student.model';
+import { Utils } from '../utils/utils.service';
 
 @Injectable()
 export class StudentService {
   constructor(
     @InjectModel(StudentsModel)
-    private model: typeof StudentsModel
+    private model: typeof StudentsModel,
+    private utils: Utils
   ) { }
 
-  async getStudents(id?: number) {
-    if (id) return await this.model.findByPk(id)
-    return await this.model.findAll()
+  async getStudents(id?: number, teacherId?: number, query?: GetStudentDto) {
+    const search: any = {}
+    if (id) search.id = id
+    if (teacherId) search.teacherId = teacherId
+    return await this.model.findAll({ where: { ...search, ...this.utils.extractSearchDate(query) } }) || []
   }
 
   async newStudent(dataDto: NewStudentDto) {

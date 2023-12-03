@@ -19,7 +19,9 @@ import { StudentService } from './services/student/student.service';
 import { SubjectController } from './controllers/subject/subject.controller';
 import { SubjectService } from './services/subject/subject.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { UtilsService } from './services/utils/utils.service';
+import { Utils } from './services/utils/utils.service';
+import { TeacherController } from './controllers/teacher/teacher.controller';
+import { TeacherService } from './services/teacher/teacher.service';
 import config from './config/db.config';
 
 let envPath: string
@@ -49,7 +51,8 @@ if (process.env.NODE_ENV === 'dev') {
     UserController,
     ProfileController,
     StudentController,
-    SubjectController
+    SubjectController,
+    TeacherController
   ],
   providers: [
     AppService,
@@ -67,7 +70,8 @@ if (process.env.NODE_ENV === 'dev') {
       useClass: ValidationPipe,
     },
     SubjectService,
-    UtilsService,
+    Utils,
+    TeacherService,
   ],
 })
 export class AppModule { }

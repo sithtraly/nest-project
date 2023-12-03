@@ -23,4 +23,7 @@ export default class StudentsModel extends Model {
 
   @Column
   address: string
+
+  @Column
+  teacherId: number
 }

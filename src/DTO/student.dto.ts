@@ -36,6 +36,8 @@ export default class NewStudentDto {
 
   @ApiProperty({ required: false })
   address: string
+
+  teacherId: number
 }
 
 export class updateStudentDto extends NewStudentDto {

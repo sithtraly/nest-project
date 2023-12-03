@@ -25,7 +25,7 @@ export class UserService {
   async newUser(data: NewUserDto) {
     let user = await this.userModel.findOne({ where: { username: data.username } })
     if (user) {
-      throw new BadRequestException('User already exist')
+      throw new BadRequestException(naming.userExist)
     }
     try {
       user = await this.userModel.create({ ...data })
