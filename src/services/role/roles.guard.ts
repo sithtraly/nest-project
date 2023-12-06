@@ -28,8 +28,6 @@ export class RolesGuard implements CanActivate {
       const user = await this.userService.findUser(payload.username)
       roleId = user.dataValues.roleId
     } catch (err) {
-      console.log('--------------err--------------')
-      console.log(err)
       throw new UnauthorizedException()
     }
     return requiredRoles.some((role: any) => roleId == role)

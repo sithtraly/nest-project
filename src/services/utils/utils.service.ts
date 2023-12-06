@@ -21,7 +21,7 @@ export class Utils {
     }
     return seachData
   }
-}
+} 
 
 export class TDate {
   private date: Date

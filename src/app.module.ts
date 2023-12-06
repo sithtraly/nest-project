@@ -23,6 +23,9 @@ import { Utils } from './services/utils/utils.service';
 import { TeacherController } from './controllers/teacher/teacher.controller';
 import { TeacherService } from './services/teacher/teacher.service';
 import config from './config/db.config';
+import { MulterModule } from '@nestjs/platform-express';
+import { multerConfig } from './config/multer.config';
+import { ExcelService } from './services/excel/excel.service';
 
 let envPath: string
 let db: any
@@ -43,7 +46,8 @@ if (process.env.NODE_ENV === 'dev') {
     JwtModule.register({
       global: true,
       secret: process.env.SECRET
-    })
+    }),
+    MulterModule.register(multerConfig)
   ],
   controllers: [
     AuthController,
@@ -72,6 +76,7 @@ if (process.env.NODE_ENV === 'dev') {
     SubjectService,
     Utils,
     TeacherService,
+    ExcelService,
   ],
 })
 export class AppModule { }

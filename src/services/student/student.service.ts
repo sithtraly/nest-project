@@ -27,6 +27,14 @@ export class StudentService {
     }
   }
 
+  async newStudents(batch: any) {
+    try {
+      return this.model.bulkCreate(batch)
+    } catch (err) {
+      throw err
+    }
+  }
+
   async updateStudent(id: number, dataDto: updateStudentDto) {
     try {
       let student = await this.model.findByPk(id)
