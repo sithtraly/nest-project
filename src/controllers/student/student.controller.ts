@@ -8,9 +8,9 @@ import { Role, Roles } from 'src/services/role/roles.decorator';
 import { StudentService } from 'src/services/student/student.service';
 import { Utils } from 'src/services/utils/utils.service';
 
-@UseGuards(AuthGuard)
+// @UseGuards(AuthGuard)
 @ApiTags('Students')
-@ApiBearerAuth()
+// @ApiBearerAuth()
 @Controller('students')
 export class StudentController {
   constructor(
