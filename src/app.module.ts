@@ -15,32 +15,34 @@ import { ProfileController } from './controllers/role/role.controller';
 import models from './models/model'
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './services/role/roles.guard';
+import { QrCodeController } from './controllers/qr-code/qr-code.controller';
+import { QrCodeService } from './services/qr-code/qr-code.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ load: [configuration] }),
-    // SequelizeModule.forRoot({
-    //   dialect: 'sqlite',
-    //   storage: 'src/config/database.sqlite',
-    //   autoLoadModels: true,
-    //   sync: {
-    //     alter: true
-    //   },
-    //   models: models
-    // }),
     SequelizeModule.forRoot({
-      dialect: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      database: 'nest-project',
-      username: 'root',
-      password: '',
+      dialect: 'sqlite',
+      storage: 'src/config/database.sqlite',
       autoLoadModels: true,
       sync: {
         alter: true
       },
-      models
+      models: models
     }),
+    // SequelizeModule.forRoot({
+    //   dialect: 'mysql',
+    //   host: 'localhost',
+    //   port: 3306,
+    //   database: 'nest-project',
+    //   username: 'root',
+    //   password: '',
+    //   autoLoadModels: true,
+    //   sync: {
+    //     alter: true
+    //   },
+    //   models
+    // }),
     SequelizeModule.forFeature(models),
     JwtModule.register({
       global: true,
@@ -51,7 +53,8 @@ import { RolesGuard } from './services/role/roles.guard';
     AuthController,
     AppController,
     UserController,
-    ProfileController
+    ProfileController,
+    QrCodeController
   ],
   providers: [
     AppService,
@@ -62,7 +65,8 @@ import { RolesGuard } from './services/role/roles.guard';
     {
       provide: APP_GUARD,
       useClass: RolesGuard
-    }
+    },
+    QrCodeService
   ],
 })
 export class AppModule { }
