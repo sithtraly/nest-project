@@ -10,6 +10,7 @@ async function bootstrap() {
     .setDescription('Rest API for nest project, project to controller classroom')
     .setVersion('1.0')
     .build()
+  app.enableCors()
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig)
   SwaggerModule.setup('api', app, swaggerDocument)
   await app.listen(port, () => console.log('Server is running at:', 'http://localhost:' + port));
