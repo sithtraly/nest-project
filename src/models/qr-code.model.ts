@@ -25,4 +25,7 @@ export class QrCodeModel extends Model {
   @AllowNull(false)
   @Column
   owner: number
+
+  @Column({ defaultValue: true })
+  isActive: boolean
 }
